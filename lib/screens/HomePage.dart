@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -117,21 +118,57 @@ class _HomePageState extends State<HomePage> {
                                         if (buttonAdded)
                                           GestureDetector(
                                             onTap: () {
-                                              if (home.isTextAdded.value ||
-                                                  home.isImageAdded.value) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(const SnackBar(
-                                                  content: Text(
-                                                    'Saved Successfully!',
-                                                    style: TextStyle(
-                                                        color: Colors.green,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                  backgroundColor:
-                                                      Color(0xff7fffd4),
-                                                ));
-                                              } else {
+                                              if (home.isTextAdded.value || home.isImageAdded.value) {
+                                                if(home.isTextAdded.value && home.isImageAdded.value){
+                                                  FirebaseFirestore.instance
+                                                      .collection('data')
+                                                      .add({'text': 'text and image is added'});
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(const SnackBar(
+                                                    content: Text(
+                                                      'Saved Successfully!',
+                                                      style: TextStyle(
+                                                          color: Colors.green,
+                                                          fontWeight:
+                                                          FontWeight.w600),
+                                                    ),
+                                                    backgroundColor:
+                                                    Color(0xff7fffd4),
+                                                  ));
+                                                }else if(home.isTextAdded.value){
+                                                  FirebaseFirestore.instance
+                                                      .collection('data')
+                                                      .add({'text': 'text is added'});
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(const SnackBar(
+                                                    content: Text(
+                                                      'Saved Successfully!',
+                                                      style: TextStyle(
+                                                          color: Colors.green,
+                                                          fontWeight:
+                                                          FontWeight.w600),
+                                                    ),
+                                                    backgroundColor:
+                                                    Color(0xff7fffd4),
+                                                  ));
+                                                }else if(home.isImageAdded.value){
+                                                  FirebaseFirestore.instance
+                                                      .collection('data')
+                                                      .add({'text': 'image is added'});
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(const SnackBar(
+                                                    content: Text(
+                                                      'Saved Successfully!',
+                                                      style: TextStyle(
+                                                          color: Colors.green,
+                                                          fontWeight:
+                                                          FontWeight.w600),
+                                                    ),
+                                                    backgroundColor:
+                                                    Color(0xff7fffd4),
+                                                  ));
+                                                }
+                                              }else{
                                                 home.onlyButtonAdded.value = true;
                                               }
                                             },
